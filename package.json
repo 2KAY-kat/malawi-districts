@@ -2,14 +2,17 @@
   "name": "malawi-districts",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "files": [
     "index.js",
     "data/districts.json",
     "README.md"
   ],
+  "author": "Kelvin 2KAY Katoya - 2kay-kat",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2KAY-kat/malawi-districts.git"
+  },
   "keywords": [
     "malawi",
     "districts",
@@ -20,4 +23,4 @@
     "utils",
     "address"
   ]
-  }
+}

@@ -50,7 +50,7 @@ MIT
 
 If you want:
 
-- More sections (Contricuting / Changelog / Typescript),
+- More sections (Contributing / Changelog / Typescript),
 - Or "why this package exists" section...
 
 Just say the word and I'll add and refine the package.
