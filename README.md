@@ -39,6 +39,22 @@ returns an array of districts in Malawi.
 const districts = getDistricts();
 ```
 
+getDistrictsSorted();
+
+returns an array of districts sorted alphabetically.
+
+``` js
+const sortedDistricts = getDistrictsSorted();
+```
+
+getDistrictsByRegion(region);
+
+returns an array of districts in a specific region (Northern, Central, Southern).
+
+``` js
+const southernDistricts = getDistrictsByRegion("Southern");
+```
+
 ## Data Source
 
 District list is based on the official administrative divisions of Malawi.
