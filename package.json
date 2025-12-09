@@ -4,7 +4,7 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "data/districts.json",
+    "data/districts.js",
     "README.md"
   ],
   "author": "Kelvin 2KAY Katoya - 2kay-kat",
