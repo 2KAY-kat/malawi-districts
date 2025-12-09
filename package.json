@@ -1,7 +1,10 @@
 {
   "name": "malawi-districts",
   "version": "1.0.1",
-  "main": "index.js",
+  "main": "index.js", 
+  "scripts": {
+    "test": "vitest"
+  },
   "files": [
     "index.js",
     "data/districts.js",
@@ -22,5 +25,8 @@
     "data",
     "utils",
     "address"
-  ]
+  ],
+  "devDependencies": {
+    "vitest": "^4.0.15"
+  }
 }
