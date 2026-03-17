@@ -1,11 +1,39 @@
-const districts = require("./data/districts.json");
+const districtObjects = require("./data/districts.json");
+const { districts: districtNames, regions } = require("./data/districts.js");
 
 /**
- * Returns the full dataset of districts.
- * @returns {Array<Object>} Array of district objects.
+ * Returns a list of district names (legacy API).
+ * @returns {string[]}
  */
 function getDistricts() {
-    return districts;
+    return [...districtNames];
+}
+
+/**
+ * Returns a list of district names sorted alphabetically (legacy API).
+ * @returns {string[]}
+ */
+function getDistrictsSorted() {
+    return [...districtNames];
+}
+
+/**
+ * Returns an array of district names for a given region (legacy API).
+ * @param {string} region
+ * @returns {string[]|null}
+ */
+function getDistrictsByRegion(region) {
+    if (!region) return null;
+    const key = region.toString().toLowerCase();
+    return regions[key] ? [...regions[key]] : null;
+}
+
+/**
+ * Returns the full dataset of district objects.
+ * @returns {Array<Object>} Array of district objects.
+ */
+function getDistrictObjects() {
+    return [...districtObjects];
 }
 
 /**
@@ -13,7 +41,7 @@ function getDistricts() {
  * @returns {Object|undefined} The capital district or undefined.
  */
 function getCapital() {
-    return districts.find((d) => d.isCapital === true);
+    return districtObjects.find((d) => d.isCapital === true);
 }
 
 /**
@@ -23,9 +51,9 @@ function getCapital() {
  */
 function getByPovertyLevel(level) {
     if (!level) return [];
-    const normalized = level.toLowerCase();
+    const normalized = level.toString().toLowerCase();
 
-    return districts.filter((d) => {
+    return districtObjects.filter((d) => {
         if (normalized === "low") return d.poverty < 30;
         if (normalized === "medium") return d.poverty >= 30 && d.poverty <= 60;
         if (normalized === "high") return d.poverty > 60;
@@ -40,8 +68,8 @@ function getByPovertyLevel(level) {
  */
 function getTotalPopulation(region = null) {
     const target = region
-        ? districts.filter((d) => d.region.toLowerCase() === region.toLowerCase())
-        : districts;
+        ? districtObjects.filter((d) => d.region.toLowerCase() === region.toLowerCase())
+        : districtObjects;
 
     return target.reduce((sum, d) => sum + (d.population || 0), 0);
 }
@@ -53,7 +81,7 @@ function getTotalPopulation(region = null) {
  */
 function getNeighbors(name) {
     if (!name) return [];
-    const match = districts.find((d) => d.name.toLowerCase() === name.toLowerCase());
+    const match = districtObjects.find((d) => d.name.toLowerCase() === name.toLowerCase());
     return match ? match.neighbors || [] : [];
 }
 
@@ -64,8 +92,8 @@ function getNeighbors(name) {
  */
 function search(query) {
     if (!query) return [];
-    const q = query.toLowerCase();
-    return districts.filter(
+    const q = query.toString().toLowerCase();
+    return districtObjects.filter(
         (d) =>
             d.name.toLowerCase().includes(q) ||
             d.region.toLowerCase().includes(q)
@@ -73,8 +101,16 @@ function search(query) {
 }
 
 module.exports = {
-    all: districts,
+    // Legacy APIs (name-only)
+    districts: [...districtNames],
+    regions: { ...regions },
     getDistricts,
+    getDistrictsSorted,
+    getDistrictsByRegion,
+
+    // New dataset APIs
+    all: districtObjects,
+    getDistrictObjects,
     getCapital,
     getByPovertyLevel,
     getTotalPopulation,

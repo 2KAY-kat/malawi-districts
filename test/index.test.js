@@ -29,4 +29,11 @@ describe("Malawi Districts Package", () => {
         const neighbors = malawi.getNeighbors("Mchinji");
         expect(neighbors).toContain("Kasungu");
     });
+
+    it("supports legacy name-only API", () => {
+        expect(malawi.getDistricts()).toContain("Blantyre");
+        expect(malawi.getDistrictsByRegion("Northern")).toContain("Chitipa");
+        expect(malawi.districts).toContain("Lilongwe");
+        expect(malawi.regions.central).toContain("Lilongwe");
+    });
 });
