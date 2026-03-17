@@ -1,74 +1,82 @@
 # Malawi Districts
 
-A light weight utility that provides a whole list of all districts in Malawi.
-Useful in forms, dropdowns, validations and any location stuff that calls and needs Malawi's districts in it
+A geospatial + socio-economic dataset of Malawi districts, including GPS centroids, poverty metrics, population totals (2018 PHC census), and neighbor relationships.
 
-## Instalation
+## Installation
 
-``` bash
+```bash
 npm install malawi-districts
 ```
-## Usage
+## Quick Start
 
-``` js
+```js
+const malawi = require('malawi-districts');
 
-const { getdistricts } = 
-require("malawi-districts");
+// full dataset
+const all = malawi.all;
 
-console.log(getdistricts());
+// capital district
+const capital = malawi.getCapital();
 
+// districts by poverty tier
+const highPoverty = malawi.getByPovertyLevel('high');
+
+// population totals
+const southernPop = malawi.getTotalPopulation('Southern');
+
+// neighbors for a district
+const neighbors = malawi.getNeighbors('Blantyre City');
+
+// fuzzy search by name or region
+const search = malawi.search('Mangochi');
 ```
 
-Output:
+## New Features (v2.0.0)
 
-``` json
+- **Geospatial**: `lat` / `lng` centroid coordinates for each district.
+- **Socio-economic**: `poverty` (MPI %) and `population` (2018 PHC Census) fields.
+- **Administrative classification**: `type` (`City` / `District`) and `class` (`Urban` / `Rural`).
+- **Neighbor relationships**: `neighbors` lists adjacent districts.
+- **New query helpers**:
+  - `getCapital()` — returns the capital district object.
+  - `getByPovertyLevel('low'|'medium'|'high')` — poverty-tier filtering.
+  - `getTotalPopulation(region?)` — population sums by region or nationwide.
+  - `getNeighbors(name)` — returns the border districts for a given district.
+  - `search(query)` — fuzzy search by district name or region.
 
-[
-    "Balaka", "Blantyre", "Chikwawa", ...
-]
+## API
 
-```
+### `malawi.all`
 
-## The API 
+All districts as an array of objects.
 
-getDistricts();
+### `malawi.getCapital()`
 
-returns an array of districts in Malawi.
+Returns the district object where `isCapital === true`.
 
-``` js 
-const districts = getDistricts();
-```
+### `malawi.getByPovertyLevel(level)`
 
-getDistrictsSorted();
+- `low`: poverty < 30%
+- `medium`: 30%–60%
+- `high`: > 60%
 
-returns an array of districts sorted alphabetically.
+### `malawi.getTotalPopulation(region)`
 
-``` js
-const sortedDistricts = getDistrictsSorted();
-```
+Returns total population for a region (`Northern`, `Central`, `Southern`) or the entire country when no region is provided.
 
-getDistrictsByRegion(region);
 
-returns an array of districts in a specific region (Northern, Central, Southern).
 
-``` js
-const southernDistricts = getDistrictsByRegion("Southern");
-```
 
-## Data Source
+## Data Sources
 
-District list is based on the official administrative divisions of Malawi.
+Data in this package is compiled from the following sources:
+
+- **NSO Malawi** – Multidimensional Poverty Index (MPI) and socio-economic data.
+- **2018 Population and Housing Census (PHC)** – population totals.
+- **UN OCHA** – centroid coordinates (latitude/longitude) from Malawi administrative boundary datasets.
 
 ## License
+
 MIT
-
----
-
-If you want:
-
-- More sections (Contributing / Changelog / Typescript),
-- Or "why this package exists" section...
-
-Just say the word and I'll add and refine the package.
 
 ---

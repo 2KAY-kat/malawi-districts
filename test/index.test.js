@@ -1,28 +1,32 @@
 import { describe, it, expect } from "vitest";
-import { getDistricts, getDistrictsByRegion, getDistrictsSorted } from "../index.js";
+import malawi from "../index.js";
 
 describe("Malawi Districts Package", () => {
 
-    it("returns all districts", () => {
-        const districts = getDistricts();
-
-        expect(districts.length).toBeGreaterThan(20);
-        expect(districts).toContain("Blantyre");
+    it("returns the capital district", () => {
+        const capital = malawi.getCapital();
+        expect(capital).toBeDefined();
+        expect(capital.name).toBe("Lilongwe City");
     });
 
-    it("returns sorted districts", () => {
-        const sorted = getDistrictsSorted();
-
-        expect(sorted).toEqual([...sorted].sort());
+    it("calculates regional population", () => {
+        const centralPop = malawi.getTotalPopulation("Central");
+        expect(centralPop).toBeGreaterThan(7_000_000);
     });
 
-    it("returns districts by region", () => {
-        const southern = getDistrictsByRegion("southern");
-        expect(southern).toContain("Mulanje");
-        expect(southern).toContain("Blantyre");
-
-        const unknown = getDistrictsByRegion("something");
-        expect(unknown).toBeNull();
+    it("filters by poverty level", () => {
+        const lowPoverty = malawi.getByPovertyLevel("low");
+        expect(lowPoverty.some((d) => d.name === "Blantyre City")).toBe(true);
     });
 
+    it("searches districts by name", () => {
+        const results = malawi.search("Mangochi");
+        expect(results.length).toBeGreaterThan(0);
+        expect(results[0].population).toBe(1148611);
+    });
+
+    it("returns neighbors for a district", () => {
+        const neighbors = malawi.getNeighbors("Mchinji");
+        expect(neighbors).toContain("Kasungu");
+    });
 });

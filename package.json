@@ -1,6 +1,7 @@
 {
   "name": "malawi-districts",
-  "version": "1.0.3",
+  "version": "2.0.0",
+  "description": "A geospatial & socio-economic dataset of Malawi districts with poverty, population, and coordinates.",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -9,9 +10,10 @@
   "files": [
     "index.js",
     "data/districts.js",
+    "data/districts.json",
     "README.md"
   ],
-  "author": "Kelvin 2KAY Katoya - 2kay-kat",
+  "author": "Kelvin 2KAY Katoya (2kay-kat)",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,13 +21,10 @@
   },
   "keywords": [
     "malawi",
-    "districts",
-    "locations",
-    "geography",
-    "africa",
-    "data",
-    "utils",
-    "address"
+    "gis",
+    "geospatial",
+    "poverty-data",
+    "africa"
   ],
   "devDependencies": {
     "vitest": "^4.0.15"
